@@ -8,7 +8,7 @@ function AddFriendForm({ onAddFriend }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (name === "" || img === "") return;
+    if (!name || !img) return;
     onAddFriend({
       id: Date.now(),
       name,
@@ -18,6 +18,7 @@ function AddFriendForm({ onAddFriend }) {
 
     setName("");
     setImg("");
+    setIsOpen(false);
   }
 
   function toggleIsOpen() {
