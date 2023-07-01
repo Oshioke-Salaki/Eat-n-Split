@@ -35,12 +35,15 @@ function App() {
     setSelectedFriend(friends.filter((friend) => friend.id === id)[0]);
   }
 
-  function handleSplitBill(id, diff) {
+  function handleSplitBill(diff) {
     setFriends((prev) =>
       [...prev].map((friend) =>
-        friend.id === id ? { ...friend, balance: diff } : friend
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + diff }
+          : friend
       )
     );
+    setSelectedFriend(null);
   }
 
   return (

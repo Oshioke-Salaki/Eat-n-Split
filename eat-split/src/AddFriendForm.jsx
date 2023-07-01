@@ -4,20 +4,21 @@ import { useState } from "react";
 function AddFriendForm({ onAddFriend }) {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState("https://i.pravatar.cc/48");
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!name || !img) return;
+    const id = crypto.randomUUID();
     onAddFriend({
-      id: Date.now(),
+      id,
       name,
-      image: img,
+      image: `${img}?=${id}`,
       balance: 0,
     });
 
     setName("");
-    setImg("");
+    setImg("https://i.pravatar.cc/48");
     setIsOpen(false);
   }
 

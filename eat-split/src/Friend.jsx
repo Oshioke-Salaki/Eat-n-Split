@@ -1,11 +1,7 @@
 /* eslint-disable react/prop-types */
 function Friend({ data, onSelectFriend, selectedFriend }) {
   return (
-    <li
-      className={
-        selectedFriend && data.id === selectedFriend.id ? "selected" : ""
-      }
-    >
+    <li className={selectedFriend?.id === data.id ? "selected" : ""}>
       <img src={data.image} alt="" />
       <h3>{data.name}</h3>
       {data.balance === 0 && <p>You and {data.name} are even!</p>}

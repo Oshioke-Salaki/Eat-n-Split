@@ -9,13 +9,14 @@ function SplitBillForm({ selectedFriend, onSplitBill }) {
 
   function split(e) {
     e.preventDefault();
+    if (!bill || !myExpense) return;
     let diff = +bill - +myExpense;
-    if (payer === "you") {
-      onSplitBill(selectedFriend.id, diff);
-    }
-    if (payer !== "you") {
-      onSplitBill(selectedFriend.id, myExpense * -1);
-    }
+
+    onSplitBill(payer === "you" ? diff : -myExpense);
+
+    setBill("");
+    setMyExpense("");
+    setPayer("you");
   }
   return (
     <form className="form-split-bill" onSubmit={split}>
@@ -31,11 +32,11 @@ function SplitBillForm({ selectedFriend, onSplitBill }) {
         type="text"
         value={myExpense}
         onChange={(e) => {
-          setMyExpense(e.target.value);
+          setMyExpense(+e.target.value > bill ? myExpense : +e.target.value);
         }}
       />
       <label>👦{selectedFriend.name} expense:</label>
-      <input type="text" disabled value={+bill - +myExpense} />
+      <input type="text" disabled value={bill ? +bill - +myExpense : ""} />
       <label>🤑 Who is paying the bill?</label>
       <select value={payer} onChange={(e) => setPayer(e.target.value)}>
         <option value="you">You</option>
